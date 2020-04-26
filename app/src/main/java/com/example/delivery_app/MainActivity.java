@@ -110,6 +110,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             editTextPhoneNo.requestFocus();
             return;
         }
+        startActivity(new Intent(MainActivity.this,Login.class));
 //      progressBar.setVisibility(View.VISIBLE);
         mAuth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -126,6 +127,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                                    progressBar.setVisibility(View.GONE);
                                     if(task.isSuccessful()){
                                         Toast.makeText(MainActivity.this, "Signed up successfully", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(MainActivity.this, Homepage.class));
                                     }
                                 }
                             });
@@ -146,6 +148,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.textViewLogin:
                 startActivity(new Intent(MainActivity.this,Login.class));
                 break;
+
         }
     }
 }

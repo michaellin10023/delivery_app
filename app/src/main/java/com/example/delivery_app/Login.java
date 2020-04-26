@@ -78,7 +78,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(Login.this, "Login successfully",Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(Login.this, Request.class));
+                    startActivity(new Intent(Login.this, Homepage.class));
                 }else{
                     Toast.makeText(Login.this,"No existing user, please sign up!",Toast.LENGTH_SHORT).show();
                 }
@@ -94,7 +94,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
             case R.id.button_login:
                 isUser();
                 break;
-            case  R.id.textViewSignup:
+            case R.id.textViewSignup:
 //                startActivity(new Intent(Login.this, MainActivity.class));
                 finish();
                 break;
