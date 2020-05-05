@@ -13,12 +13,16 @@ public class Homepage extends AppCompatActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
         findViewById(R.id.buttonRequest).setOnClickListener(this);
+        findViewById(R.id.buttonFulfill).setOnClickListener(this);
         findViewById(R.id.buttonLogout).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.buttonFulfill:
+                startActivity(new Intent(Homepage.this, Fulfill.class));
+                break;
             case R.id.buttonRequest:
                 startActivity(new Intent(Homepage.this, Request.class));
                 break;

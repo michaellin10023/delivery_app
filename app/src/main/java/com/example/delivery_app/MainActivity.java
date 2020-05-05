@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -112,6 +114,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         startActivity(new Intent(MainActivity.this,Login.class));
 //      progressBar.setVisibility(View.VISIBLE);
+        System.out.print("Print: " + FirebaseDatabase.getInstance().getApp().getOptions().getProjectId());
+
         mAuth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
