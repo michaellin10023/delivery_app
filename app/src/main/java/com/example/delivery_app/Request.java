@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -18,7 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class Request extends AppCompatActivity implements View.OnClickListener{
 
-    EditText editTextStore, editTextItems, editTextAddress, editTextTime_window;
+    EditText editTextStore, editTextItems, editTextStreet, editTextCity, editTextState, editTextTime_start, editTextTime_end;
     ProgressBar progressBar;
     FirebaseDatabase database;
     DatabaseReference reference;
@@ -33,26 +34,88 @@ public class Request extends AppCompatActivity implements View.OnClickListener{
 
         editTextStore = findViewById(R.id.store);
         editTextItems = findViewById(R.id.items);
-        editTextAddress = findViewById(R.id.address);
-        editTextTime_window = findViewById(R.id.time_window);
+        editTextStreet = findViewById(R.id.req_street);
+        editTextCity = findViewById(R.id.req_city);
+        editTextState = findViewById(R.id.req_state);
+        editTextTime_start = findViewById(R.id.req_start_time);
+        editTextTime_end = findViewById(R.id.req_end_time);
         mAuth = FirebaseAuth.getInstance();
     }
 
     private void place_order() {
         final String store = editTextStore.getText().toString().trim();
         final String items = editTextItems.getText().toString().trim();
-        final String address = editTextAddress.getText().toString().trim();
-        final String time_window = editTextTime_window.getText().toString().trim();
+        final String street = editTextStreet.getText().toString().trim();
+        final String city = editTextCity.getText().toString().trim();
+        final String state = editTextState.getText().toString().trim();
+        final String start_time = editTextTime_start.getText().toString().trim();
+        final String end_time = editTextTime_end.getText().toString().trim();
+        final String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        RequestInfoHelperClass requestInfoHelperClass = new RequestInfoHelperClass(store,items,address,time_window);
-        FirebaseDatabase.getInstance().getReference("users")
-                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("request")
-                .push().setValue(requestInfoHelperClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+        if(store.isEmpty()){
+            editTextStore.setError("Store is required");
+            editTextStore.requestFocus();
+            return;
+        }
+
+        if (items.isEmpty()) {
+            editTextItems.setError("Item is required");
+            editTextItems.requestFocus();
+            return;
+        }
+
+        if (street.isEmpty()) {
+            editTextStreet.setError("Street is required");
+            editTextStreet.requestFocus();
+            return;
+        }
+
+        if (city.isEmpty()) {
+            editTextCity.setError("City is required");
+            editTextCity.requestFocus();
+            return;
+        }
+
+        if (state.isEmpty()) {
+            editTextState.setError("State is required");
+            editTextState.requestFocus();
+            return;
+        }
+
+        if(start_time.isEmpty()){
+            editTextTime_start.setError("Start time is required");
+            editTextTime_start.requestFocus();
+            return;
+        }
+
+        if(end_time.isEmpty()){
+            editTextTime_end.setError("End time is required");
+            editTextTime_end.requestFocus();
+            return;
+        }
+
+        if(Integer.parseInt(start_time) > 24 || Integer.parseInt(start_time) < 0){
+            editTextTime_start.setError("Should between 0 and 24");
+            editTextTime_start.requestFocus();
+            return;
+        }
+
+        if(Integer.parseInt(end_time) > 24 || Integer.parseInt(end_time) < 0){
+            editTextTime_end.setError("Should between 0 and 24");
+            editTextTime_end.requestFocus();
+            return;
+        }
+        Address address = new Address(street,city,state);
+        RequestInfoHelperClass requestInfoHelperClass = new RequestInfoHelperClass(store,items,address,start_time,end_time);
+        FirebaseDatabase.getInstance().getReference("requests")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .setValue(requestInfoHelperClass).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
 //                                    progressBar.setVisibility(View.GONE);
                 if(task.isSuccessful()){
                     Toast.makeText(Request.this, "Your order is placed successfully!", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(Request.this, Homepage.class));
                 }
             }
         });;

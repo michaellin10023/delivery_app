@@ -2,12 +2,14 @@ package com.example.delivery_app;
 
 public class FulfillInfoHelper {
 
-    String store, myAddress, timeWindow;
+    String store, start, end;
+    Address address;
 
-    public FulfillInfoHelper(String store, String myAddress, String timeWindow) {
+    public FulfillInfoHelper(String store, String start, String end, Address address) {
         this.store = store;
-        this.myAddress = myAddress;
-        this.timeWindow = timeWindow;
+        this.start = start;
+        this.end = end;
+        this.address = address;
     }
 
     public String getStore() {
@@ -18,19 +20,27 @@ public class FulfillInfoHelper {
         this.store = store;
     }
 
-    public String getMyAddress() {
-        return myAddress;
+    public String getStart() {
+        return start;
     }
 
-    public void setMyAddress(String myAddress) {
-        this.myAddress = myAddress;
+    public void setStart(String start) {
+        this.start = start;
     }
 
-    public String getTimeWindow() {
-        return timeWindow;
+    public String getEnd() {
+        return end;
     }
 
-    public void setTimeWindow(String timeWindow) {
-        this.timeWindow = timeWindow;
+    public void setEnd(String end) {
+        this.end = end;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }

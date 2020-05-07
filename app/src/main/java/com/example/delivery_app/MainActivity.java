@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.textViewLogin).setOnClickListener(this);
 
         mAuth = FirebaseAuth.getInstance();
+       reference = FirebaseDatabase.getInstance().getReference();
 
     }
 
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final String password = editTextPassword.getText().toString().trim();
         final String phoneNo = editTextPhoneNo.getText().toString().trim();
         final String address = editTextAddress.getText().toString().trim();
+
 
         if(username.isEmpty()){
             editTextUsername.setError("Username is required");
@@ -97,12 +99,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         if(address.isEmpty()){
-            editTextAddress.setError("Address required");
+            editTextAddress.setError("Address is required");
             editTextAddress.requestFocus();
         }
 
         if(phoneNo.isEmpty()){
-            editTextPhoneNo.setError("PhoneNo required");
+            editTextPhoneNo.setError("PhoneNo is required");
             editTextPhoneNo.requestFocus();
             return;
         }
@@ -112,9 +114,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             editTextPhoneNo.requestFocus();
             return;
         }
-        startActivity(new Intent(MainActivity.this,Login.class));
+
 //      progressBar.setVisibility(View.VISIBLE);
-        System.out.print("Print: " + FirebaseDatabase.getInstance().getApp().getOptions().getProjectId());
+//        System.out.print("Print: " + FirebaseDatabase.getInstance().getApp().getOptions().getProjectId());
 
         mAuth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -123,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         if(task.isSuccessful()) {
                             UserHelperClass helperClass = new UserHelperClass(username, email, address, phoneNo);
 //                            FirebaseDatabase.getInstance().getReference("users").setValue("testing");
-                            FirebaseDatabase.getInstance().getReference("users")
+                            FirebaseDatabase.getInstance().getReference("users_info")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                     .setValue(helperClass).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
@@ -140,6 +142,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }
                     }
                 });
+
     }
 
 

@@ -2,13 +2,15 @@ package com.example.delivery_app;
 
 public class RequestInfoHelperClass {
 
-    String store, items, address, time_window;
+    String store, items, start_time,end_time;
+    Address address;
 
-    public RequestInfoHelperClass(String store, String items, String address, String time_window) {
+    public RequestInfoHelperClass(String store, String items, Address address, String start_time, String end_time) {
         this.store = store;
         this.items = items;
+        this.start_time = start_time;
+        this.end_time = end_time;
         this.address = address;
-        this.time_window = time_window;
     }
 
     public String getStore() {
@@ -27,19 +29,27 @@ public class RequestInfoHelperClass {
         this.items = items;
     }
 
-    public String getAddress() {
+    public String getStart_time() {
+        return start_time;
+    }
+
+    public void setStart_time(String start_time) {
+        this.start_time = start_time;
+    }
+
+    public String getEnd_time() {
+        return end_time;
+    }
+
+    public void setEnd_time(String end_time) {
+        this.end_time = end_time;
+    }
+
+    public Address getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(Address address) {
         this.address = address;
-    }
-
-    public String getTime_window() {
-        return time_window;
-    }
-
-    public void setTime_window(String time_window) {
-        this.time_window = time_window;
     }
 }
