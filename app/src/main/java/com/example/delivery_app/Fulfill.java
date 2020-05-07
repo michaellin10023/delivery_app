@@ -21,6 +21,7 @@ public class Fulfill extends AppCompatActivity implements View.OnClickListener{
     EditText editTextFStore, editTextFStreet, editTextFCity, editTextFState, editTextFStart, editTextFEnd;
     ProgressBar progressBar;
     FirebaseAuth mAuth;
+    ful_status ful_status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +46,7 @@ public class Fulfill extends AppCompatActivity implements View.OnClickListener{
         final String state = editTextFState.getText().toString().trim();
         final String start = editTextFStart.getText().toString().trim();
         final String end = editTextFEnd.getText().toString().trim();
-        final String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
 
         if(store.isEmpty()){
             editTextFStore.setError("Store is required");
@@ -96,7 +97,7 @@ public class Fulfill extends AppCompatActivity implements View.OnClickListener{
         }
 
         Address address = new Address(street,city,state);
-        FulfillInfoHelper fulfillInfo = new FulfillInfoHelper(store,start,end,address);
+        FulfillInfoHelper fulfillInfo = new FulfillInfoHelper(store,start,end,address,ful_status.pending);
         FirebaseDatabase.getInstance().getReference("fulfill")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .setValue(fulfillInfo).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -108,7 +109,7 @@ public class Fulfill extends AppCompatActivity implements View.OnClickListener{
                     startActivity(new Intent(Fulfill.this, Homepage.class));
                 }
             }
-        });;
+        });
 
     }
     @Override

@@ -24,6 +24,7 @@ public class Request extends AppCompatActivity implements View.OnClickListener{
     FirebaseDatabase database;
     DatabaseReference reference;
     FirebaseAuth mAuth;
+    req_status req_status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,6 @@ public class Request extends AppCompatActivity implements View.OnClickListener{
         final String state = editTextState.getText().toString().trim();
         final String start_time = editTextTime_start.getText().toString().trim();
         final String end_time = editTextTime_end.getText().toString().trim();
-        final String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         if(store.isEmpty()){
             editTextStore.setError("Store is required");
@@ -106,7 +106,7 @@ public class Request extends AppCompatActivity implements View.OnClickListener{
             return;
         }
         Address address = new Address(street,city,state);
-        RequestInfoHelperClass requestInfoHelperClass = new RequestInfoHelperClass(store,items,address,start_time,end_time);
+        RequestInfoHelperClass requestInfoHelperClass = new RequestInfoHelperClass(store,items,address,start_time,end_time,req_status.pending);
         FirebaseDatabase.getInstance().getReference("requests")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .setValue(requestInfoHelperClass).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -118,7 +118,7 @@ public class Request extends AppCompatActivity implements View.OnClickListener{
                     startActivity(new Intent(Request.this, Homepage.class));
                 }
             }
-        });;
+        });
 
     }
 
