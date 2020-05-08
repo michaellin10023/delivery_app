@@ -46,7 +46,7 @@ public class Fulfill extends AppCompatActivity implements View.OnClickListener{
         final String state = editTextFState.getText().toString().trim();
         final String start = editTextFStart.getText().toString().trim();
         final String end = editTextFEnd.getText().toString().trim();
-
+        final String dev_token;
 
         if(store.isEmpty()){
             editTextFStore.setError("Store is required");
@@ -95,9 +95,9 @@ public class Fulfill extends AppCompatActivity implements View.OnClickListener{
             editTextFEnd.requestFocus();
             return;
         }
-
+        dev_token = SharedPrefManager.getInstance(this).getToken();
         Address address = new Address(street,city,state);
-        FulfillInfoHelper fulfillInfo = new FulfillInfoHelper(store,start,end,address,ful_status.pending);
+        FulfillInfoHelper fulfillInfo = new FulfillInfoHelper(store,start,end,dev_token,address,ful_status.pending);
         FirebaseDatabase.getInstance().getReference("fulfill")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .setValue(fulfillInfo).addOnCompleteListener(new OnCompleteListener<Void>() {

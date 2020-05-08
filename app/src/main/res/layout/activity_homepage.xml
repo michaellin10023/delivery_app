@@ -30,6 +30,8 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true" />
 
+
+
     </LinearLayout>
 
 
@@ -56,6 +58,8 @@
                 android:text="Logout"
                 android:textAllCaps="false"
                 android:textColor="@color/colorAccent" />
+
+
 
 
         </LinearLayout>
@@ -92,6 +96,8 @@
             android:text="Fulfill a request"
             android:textAllCaps="false"
             android:textColor="@color/colorAccent" />
+
+
     </RelativeLayout>
 
 

@@ -30,6 +30,13 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true" />
 
+        <TextView
+            android:id="@+id/textViewToken"
+            android:text="Show token once generated"
+            android:textSize="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
     </LinearLayout>
 
 

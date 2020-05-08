@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 public class Homepage extends AppCompatActivity implements View.OnClickListener{
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,6 +18,7 @@ public class Homepage extends AppCompatActivity implements View.OnClickListener{
         findViewById(R.id.buttonRequest).setOnClickListener(this);
         findViewById(R.id.buttonFulfill).setOnClickListener(this);
         findViewById(R.id.buttonLogout).setOnClickListener(this);
+
     }
 
     @Override

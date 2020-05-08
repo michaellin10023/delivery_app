@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     FirebaseDatabase database;
     DatabaseReference reference;
     FirebaseAuth mAuth;
+    TextView textViewToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +48,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.textViewLogin).setOnClickListener(this);
 
         mAuth = FirebaseAuth.getInstance();
-       reference = FirebaseDatabase.getInstance().getReference();
+        reference = FirebaseDatabase.getInstance().getReference();
+        textViewToken = findViewById(R.id.textViewToken);
+        textViewToken.setText(SharedPrefManager.getInstance(this).getToken());
 
     }
 

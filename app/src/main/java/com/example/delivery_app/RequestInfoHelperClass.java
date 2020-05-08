@@ -6,16 +6,16 @@ enum req_status{
 
 public class RequestInfoHelperClass {
 
-    private String store, items, start_time,end_time;
+    private String store, items, start_time,end_time, device_token;
     private Address address;
     private req_status req_status;
 
-
-    public RequestInfoHelperClass(String store, String items, Address address, String start_time, String end_time, req_status req_status) {
+    public RequestInfoHelperClass(String store, String items, String start_time, String end_time, String device_token, Address address, req_status req_status) {
         this.store = store;
         this.items = items;
         this.start_time = start_time;
         this.end_time = end_time;
+        this.device_token = device_token;
         this.address = address;
         this.req_status = req_status;
     }
@@ -54,6 +54,14 @@ public class RequestInfoHelperClass {
 
     public Address getAddress() {
         return address;
+    }
+
+    public String getDevice_token() {
+        return device_token;
+    }
+
+    public void setDevice_token(String device_token) {
+        this.device_token = device_token;
     }
 
     public void setAddress(Address address) {

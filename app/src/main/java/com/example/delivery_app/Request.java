@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessagingService;
 
 public class Request extends AppCompatActivity implements View.OnClickListener{
 
@@ -51,6 +52,7 @@ public class Request extends AppCompatActivity implements View.OnClickListener{
         final String state = editTextState.getText().toString().trim();
         final String start_time = editTextTime_start.getText().toString().trim();
         final String end_time = editTextTime_end.getText().toString().trim();
+        final String dev_token;
 
         if(store.isEmpty()){
             editTextStore.setError("Store is required");
@@ -105,8 +107,10 @@ public class Request extends AppCompatActivity implements View.OnClickListener{
             editTextTime_end.requestFocus();
             return;
         }
+
+        dev_token = SharedPrefManager.getInstance(this).getToken();
         Address address = new Address(street,city,state);
-        RequestInfoHelperClass requestInfoHelperClass = new RequestInfoHelperClass(store,items,address,start_time,end_time,req_status.pending);
+        RequestInfoHelperClass requestInfoHelperClass = new RequestInfoHelperClass(store,items,start_time,end_time,dev_token,address,req_status.pending);
         FirebaseDatabase.getInstance().getReference("requests")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .setValue(requestInfoHelperClass).addOnCompleteListener(new OnCompleteListener<Void>() {
