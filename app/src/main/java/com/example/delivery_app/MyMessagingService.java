@@ -23,12 +23,13 @@ import com.google.firebase.messaging.RemoteMessage;
 import java.util.Random;
 
 public class MyMessagingService extends FirebaseMessagingService {
+
     private static final String TAG = MyMessagingService.class.getSimpleName();
+    public static final String UPDATE_BROADCAST = "myupdatebroadcast";
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         // ...
 
-       
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
         Log.d(TAG, "From: " + remoteMessage.getFrom());
 
@@ -36,15 +37,18 @@ public class MyMessagingService extends FirebaseMessagingService {
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
             Log.d(TAG, "Message data payload: " + remoteMessage.getData());
-
+//            Toast.makeText(this,"Toast shown",Toast.LENGTH_SHORT).show();
         }
 
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
+//            Toast.makeText(this, "Toast shown1", Toast.LENGTH_SHORT).show();
         }
 
         showNotification(remoteMessage.getNotification().getTitle(),remoteMessage.getNotification().getBody());
+        getApplicationContext().sendBroadcast(new Intent(UPDATE_BROADCAST));
+
     }
 
     private void showNotification(String title, String body){
@@ -78,24 +82,19 @@ public class MyMessagingService extends FirebaseMessagingService {
 
     /**
      * Called if InstanceID token is updated. This may occur if the security of
-     * the previous token had been compromised. Note that this is called when the InstanceID token
-     * is initially generated so this is where you would retrieve the token.
+     *      * the previous token had been compromised. Note that this is called when the InstanceID token
+     *      * is initially generated so this is where you would retrieve the token.
      */
     @Override
     public void onNewToken(String token) {
-        Log.d(TAG, "Refreshed token: " + token);
 
+        Log.d(TAG, "Refreshed token: " + token);
         storeToken(token);
-        push_db(token);
     }
 
     private void storeToken(String token){
         SharedPrefManager.getInstance(getApplicationContext()).storeToken(token);
     }
 
-    private void push_db(String token){
-        FirebaseDatabase.getInstance().getReference("requests")
-                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .setValue(token);
-    }
+
 }

@@ -60,9 +60,9 @@
                 android:textColor="@color/colorAccent" />
 
 
-
-
         </LinearLayout>
+
+
 
         <ProgressBar
             android:id="@+id/progressbar"

@@ -2,13 +2,19 @@ package com.example.delivery_app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Homepage extends AppCompatActivity implements View.OnClickListener{
 
+
+    private BroadcastReceiver broadcastReceiver;
 
 
     @Override
@@ -19,7 +25,20 @@ public class Homepage extends AppCompatActivity implements View.OnClickListener{
         findViewById(R.id.buttonFulfill).setOnClickListener(this);
         findViewById(R.id.buttonLogout).setOnClickListener(this);
 
+
+//        Toast.makeText(getApplicationContext(),"before broadcast!",Toast.LENGTH_SHORT).show();
+        broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+//                Toast.makeText(Homepage.this,"from broadcast!",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(Homepage.this,MatchResult.class));
+            }
+        };
+
+        registerReceiver(broadcastReceiver, new IntentFilter(MyMessagingService.UPDATE_BROADCAST));
     }
+
+
 
     @Override
     public void onClick(View v) {
@@ -35,4 +54,5 @@ public class Homepage extends AppCompatActivity implements View.OnClickListener{
                 break;
         }
     }
+
 }
