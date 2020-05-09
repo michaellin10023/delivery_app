@@ -26,6 +26,7 @@ public class Request extends AppCompatActivity implements View.OnClickListener{
     DatabaseReference reference;
     FirebaseAuth mAuth;
     req_status req_status;
+    static boolean seeker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,7 @@ public class Request extends AppCompatActivity implements View.OnClickListener{
         editTextTime_start = findViewById(R.id.req_start_time);
         editTextTime_end = findViewById(R.id.req_end_time);
         mAuth = FirebaseAuth.getInstance();
+        seeker = false;
     }
 
     private void place_order() {
@@ -119,6 +121,7 @@ public class Request extends AppCompatActivity implements View.OnClickListener{
 //                                    progressBar.setVisibility(View.GONE);
                 if(task.isSuccessful()){
                     Toast.makeText(Request.this, "Your order is placed successfully!", Toast.LENGTH_SHORT).show();
+                    seeker = true;
                     startActivity(new Intent(Request.this, Homepage.class));
                 }
             }

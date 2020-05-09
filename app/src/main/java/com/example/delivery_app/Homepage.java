@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,7 +15,8 @@ import android.widget.Toast;
 public class Homepage extends AppCompatActivity implements View.OnClickListener{
 
 
-    private BroadcastReceiver broadcastReceiver;
+    private BroadcastReceiver seekerBroadcastReceiver;
+    private BroadcastReceiver volunteerBroadcastReceiver;
 
 
     @Override
@@ -25,17 +27,32 @@ public class Homepage extends AppCompatActivity implements View.OnClickListener{
         findViewById(R.id.buttonFulfill).setOnClickListener(this);
         findViewById(R.id.buttonLogout).setOnClickListener(this);
 
-
-//        Toast.makeText(getApplicationContext(),"before broadcast!",Toast.LENGTH_SHORT).show();
-        broadcastReceiver = new BroadcastReceiver() {
+        seekerBroadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-//                Toast.makeText(Homepage.this,"from broadcast!",Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(Homepage.this,MatchResult.class));
+
+                String uid = intent.getStringExtra("uid");
+                Log.d("check uid in homepage",uid);
+                Intent newIntent = new Intent(Homepage.this,MatchResult.class);
+                newIntent.putExtra("uid",uid);
+                startActivity(newIntent);
             }
         };
 
-        registerReceiver(broadcastReceiver, new IntentFilter(MyMessagingService.UPDATE_BROADCAST));
+        volunteerBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+
+                String uid = intent.getStringExtra("uid");
+                Log.d("check uid in homepage",uid);
+                Intent newIntent = new Intent(Homepage.this,VolunteerMatchResult.class);
+                newIntent.putExtra("uid",uid);
+                startActivity(newIntent);
+            }
+        };
+
+        registerReceiver(seekerBroadcastReceiver, new IntentFilter(MyMessagingService.SEEKER_BROADCAST));
+        registerReceiver(volunteerBroadcastReceiver, new IntentFilter(MyMessagingService.VOLUNTEER_BROADCAST));
     }
 
 

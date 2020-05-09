@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MatchResult">
+    tools:context=".VolunteerMatchResult">
 
     <TextView
         android:textSize="40dp"
-        android:text="Seeker Match result"
+        android:text="Volunteer Match result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/activity_horizontal_margin"/>
@@ -19,17 +19,17 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/name"
+            android:id="@+id/name_vol"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Name "
             android:textSize="30sp" />
 
         <EditText
-            android:id="@+id/etName"
+            android:id="@+id/etName_vol"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/name"
+            android:layout_toRightOf="@+id/name_vol"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="Name " />
@@ -41,17 +41,17 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/address"
+            android:id="@+id/address_vol"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Address "
             android:textSize="30sp" />
 
         <EditText
-            android:id="@+id/etAddress"
+            android:id="@+id/etAddress_vol"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/address"
+            android:layout_toRightOf="@id/address_vol"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="Address" />
@@ -63,26 +63,48 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/phone"
+            android:id="@+id/phone_vol"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="PhoneNo "
             android:textSize="30sp" />
 
         <EditText
-            android:id="@+id/etphone"
+            android:id="@+id/etphone_vol"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/phone"
+            android:layout_toRightOf="@+id/phone_vol"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="PhoneNo" />
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvItem_vol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Items "
+            android:textSize="30sp" />
+
+        <EditText
+            android:id="@+id/etItem_vol"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tvItem_vol"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Items " />
+
+    </RelativeLayout>
+
 
     <TextView
-        android:id="@+id/tvHomepage"
+        android:id="@+id/tvHomepage_vol"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="15dp"
@@ -92,7 +114,5 @@
         android:textColor="@color/colorAccent"
         android:gravity="center_horizontal"
         android:layout_gravity="center_horizontal" />
-
-
 
 </LinearLayout>

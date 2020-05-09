@@ -22,6 +22,7 @@ public class Fulfill extends AppCompatActivity implements View.OnClickListener{
     ProgressBar progressBar;
     FirebaseAuth mAuth;
     ful_status ful_status;
+    static boolean volunteer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,7 @@ public class Fulfill extends AppCompatActivity implements View.OnClickListener{
         editTextFState = findViewById(R.id.ful_state);
         editTextFStart = findViewById(R.id.ful_start_time);
         editTextFEnd = findViewById(R.id.ful_end_time);
-
+        volunteer = false;
         mAuth = FirebaseAuth.getInstance();
     }
     private void place_fulfillment() {
@@ -106,6 +107,7 @@ public class Fulfill extends AppCompatActivity implements View.OnClickListener{
 //                                    progressBar.setVisibility(View.GONE);
                 if(task.isSuccessful()){
                     Toast.makeText(Fulfill.this, "Your order is placed successfully!", Toast.LENGTH_SHORT).show();
+                    volunteer = true;
                     startActivity(new Intent(Fulfill.this, Homepage.class));
                 }
             }

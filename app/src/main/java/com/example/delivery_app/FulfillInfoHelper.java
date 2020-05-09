@@ -9,6 +9,7 @@ public class FulfillInfoHelper {
     private Address address;
     private ful_status ful_status;
 
+    public FulfillInfoHelper(){}
     public FulfillInfoHelper(String store, String start, String end, String device_token, Address address, com.example.delivery_app.ful_status ful_status) {
         this.store = store;
         this.start = start;

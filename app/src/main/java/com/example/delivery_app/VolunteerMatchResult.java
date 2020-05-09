@@ -5,10 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -17,25 +15,26 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class MatchResult extends AppCompatActivity implements View.OnClickListener{
+public class VolunteerMatchResult extends AppCompatActivity implements View.OnClickListener{
 
-    private EditText etName, etAddress, etPhone;
+    private EditText etName, etAddress, etPhone, etItem;
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
-    String username, address, email, phone;
+    String username, address, email, phone, item;
     DatabaseReference ref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_match_result);
-        etName = findViewById(R.id.etName);
-        etAddress = findViewById(R.id.etAddress);
-        etPhone = findViewById(R.id.etphone);
-        findViewById(R.id.tvHomepage).setOnClickListener(this);
+        setContentView(R.layout.activity_volunteer_match_result);
+        etName = findViewById(R.id.etName_vol);
+        etAddress = findViewById(R.id.etAddress_vol);
+        etPhone = findViewById(R.id.etphone_vol);
+        etItem = findViewById(R.id.etItem_vol);
+        findViewById(R.id.tvHomepage_vol).setOnClickListener(this);
 
         Intent i = getIntent();
         String uid = i.getStringExtra("uid");
         String path = "users_info/" + uid;
-        Toast.makeText(MatchResult.this,path,Toast.LENGTH_SHORT).show();
+//        Toast.makeText(VolunteerMatchResult.this,path,Toast.LENGTH_SHORT).show();
         ref = database.getReference(path);
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -54,13 +53,27 @@ public class MatchResult extends AppCompatActivity implements View.OnClickListen
 
             }
         });
-    }
+        path = "requests/" + uid;
+        ref = database.getReference(path);
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                RequestInfoHelperClass requestInfoHelperClass = dataSnapshot.getValue(RequestInfoHelperClass.class);
+                item = requestInfoHelperClass.getItems();
+                etItem.setText(item);
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 
     @Override
     public void onClick(View v) {
         switch(v.getId()){
-            case R.id.tvHomepage:
+            case R.id.tvHomepage_vol:
                 finish();
                 break;
         }

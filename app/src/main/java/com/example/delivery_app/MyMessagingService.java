@@ -25,7 +25,9 @@ import java.util.Random;
 public class MyMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = MyMessagingService.class.getSimpleName();
-    public static final String UPDATE_BROADCAST = "myupdatebroadcast";
+    public static final String SEEKER_BROADCAST = "seekerbroadcast";
+    public static final String VOLUNTEER_BROADCAST = "volunteerbroadcast";
+
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         // ...
@@ -37,6 +39,7 @@ public class MyMessagingService extends FirebaseMessagingService {
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
             Log.d(TAG, "Message data payload: " + remoteMessage.getData());
+            Log.d(TAG, "UID to extract: " + remoteMessage.getData().get("UID"));
 //            Toast.makeText(this,"Toast shown",Toast.LENGTH_SHORT).show();
         }
 
@@ -47,7 +50,20 @@ public class MyMessagingService extends FirebaseMessagingService {
         }
 
         showNotification(remoteMessage.getNotification().getTitle(),remoteMessage.getNotification().getBody());
-        getApplicationContext().sendBroadcast(new Intent(UPDATE_BROADCAST));
+        if(Request.seeker == true){
+            String uid = remoteMessage.getData().get("UID");
+            Intent intent = new Intent(SEEKER_BROADCAST);
+            intent.putExtra("uid",uid);
+            getApplicationContext().sendBroadcast(intent);
+        }
+
+        if(Fulfill.volunteer == true){
+            String uid = remoteMessage.getData().get("UID");
+            Intent intent = new Intent(VOLUNTEER_BROADCAST);
+            intent.putExtra("uid",uid);
+            getApplicationContext().sendBroadcast(intent);
+        }
+
 
     }
 

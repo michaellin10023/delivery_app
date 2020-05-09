@@ -10,6 +10,7 @@ public class RequestInfoHelperClass {
     private Address address;
     private req_status req_status;
 
+    public  RequestInfoHelperClass(){}
     public RequestInfoHelperClass(String store, String items, String start_time, String end_time, String device_token, Address address, req_status req_status) {
         this.store = store;
         this.items = items;
