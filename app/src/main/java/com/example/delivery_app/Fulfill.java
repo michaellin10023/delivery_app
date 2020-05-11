@@ -2,6 +2,7 @@ package com.example.delivery_app;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -108,6 +109,7 @@ public class Fulfill extends AppCompatActivity implements View.OnClickListener{
                 if(task.isSuccessful()){
                     Toast.makeText(Fulfill.this, "Your order is placed successfully!", Toast.LENGTH_SHORT).show();
                     volunteer = true;
+                    Log.d("vol:",Boolean.toString(volunteer));
                     startActivity(new Intent(Fulfill.this, Homepage.class));
                 }
             }

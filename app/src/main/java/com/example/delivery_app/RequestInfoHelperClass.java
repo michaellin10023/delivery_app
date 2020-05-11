@@ -1,7 +1,7 @@
 package com.example.delivery_app;
 
 enum req_status{
-    pending, confirmed, expired, completed, deleted
+    pending, confirmed, expired, completed, deleted,matched
 }
 
 public class RequestInfoHelperClass {

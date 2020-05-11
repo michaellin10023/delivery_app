@@ -80,6 +80,26 @@
 
     </RelativeLayout>
 
+    <Button
+        android:id="@+id/btnAccept"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="7dp"
+        android:text="Accept"
+        android:textAllCaps="false"
+        android:textColor="@color/colorAccent" />
+
+    <Button
+        android:id="@+id/btnDecline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="7dp"
+        android:text="Decline"
+        android:textAllCaps="false"
+        android:textColor="@color/colorAccent" />
+
 
     <TextView
         android:id="@+id/tvHomepage"

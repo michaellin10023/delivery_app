@@ -20,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import java.util.Map;
 import java.util.Random;
 
 public class MyMessagingService extends FirebaseMessagingService {
@@ -27,30 +28,31 @@ public class MyMessagingService extends FirebaseMessagingService {
     private static final String TAG = MyMessagingService.class.getSimpleName();
     public static final String SEEKER_BROADCAST = "seekerbroadcast";
     public static final String VOLUNTEER_BROADCAST = "volunteerbroadcast";
+    public static final String CONFIRMATION_BROADCAST = "confirmbroadcast";
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        // ...
 
-        // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
-        Log.d(TAG, "From: " + remoteMessage.getFrom());
+        Log.d("seeker:",Boolean.toString(Request.seeker));
+        Log.d("vol:",Boolean.toString(Fulfill.volunteer));
 
+        if(Request.seeker == false && Fulfill.volunteer == false){
 
-        // Check if message contains a data payload.
-        if (remoteMessage.getData().size() > 0) {
-            Log.d(TAG, "Message data payload: " + remoteMessage.getData());
-            Log.d(TAG, "UID to extract: " + remoteMessage.getData().get("UID"));
-//            Toast.makeText(this,"Toast shown",Toast.LENGTH_SHORT).show();
-        }
-
-        // Check if message contains a notification payload.
-        if (remoteMessage.getNotification() != null) {
-            Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
-//            Toast.makeText(this, "Toast shown1", Toast.LENGTH_SHORT).show();
+            Map<String,String> extraData = remoteMessage.getData();
+            String uid = extraData.get("uid");
+            if(uid == null)
+                Log.d("did i get","this is null");
+            else
+                Log.d("uid:",uid);
+            Intent intent = new Intent(CONFIRMATION_BROADCAST);
+            intent.putExtra("uid",uid);
+            getApplicationContext().sendBroadcast(intent);
         }
 
         showNotification(remoteMessage.getNotification().getTitle(),remoteMessage.getNotification().getBody());
+
         if(Request.seeker == true){
+            Request.seeker = false;
             String uid = remoteMessage.getData().get("UID");
             Intent intent = new Intent(SEEKER_BROADCAST);
             intent.putExtra("uid",uid);
@@ -58,6 +60,7 @@ public class MyMessagingService extends FirebaseMessagingService {
         }
 
         if(Fulfill.volunteer == true){
+            Fulfill.volunteer = false;
             String uid = remoteMessage.getData().get("UID");
             Intent intent = new Intent(VOLUNTEER_BROADCAST);
             intent.putExtra("uid",uid);

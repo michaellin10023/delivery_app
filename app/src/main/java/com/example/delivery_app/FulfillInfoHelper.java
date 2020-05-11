@@ -1,7 +1,7 @@
 package com.example.delivery_app;
 
 enum ful_status{
-    pending, pending_confirmation, matched, expired, deleted
+    pending, pending_confirmation, matched, expired, deleted,completed,confirmed
 }
 public class FulfillInfoHelper {
 
